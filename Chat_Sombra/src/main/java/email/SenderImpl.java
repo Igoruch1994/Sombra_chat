@@ -12,8 +12,8 @@ public class SenderImpl implements Sender {
     private Properties props;
 
     public SenderImpl() {
-        this.username = "igor.igruk@gmail.com";
-        this.password = "syncmaster1994";
+        this.username = "igor@gmail.com";
+        this.password = "1994";
 
         props = new Properties();
         props.put("mail.smtp.auth", "true");
