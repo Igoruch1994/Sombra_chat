@@ -1,0 +1,173 @@
+<div class="container" >
+    <div class="row">
+        <div  class="row">
+
+            <div class="col-lg-3 col-md-3 col-sm-3 ">
+                <div class="panel panel-info"  >
+                    <div class="panel-heading" >
+                        <a><span ng-click="GetConversationOfCurrentUser()"   class="fa fa-envelope-open-o fa-2x" ></span></a> Conversations
+                        <a><i ng-click="createConversation=true" class="fa fa-plus fa-2x toRight" aria-hidden="true"></i></a>
+                    </div>
+                    <div class="panel-collapse collapse in">
+                        <div class="panel-body  conversation" ng-init="GetConversationOfCurrentUser()">
+                            <ul class="convers" >
+                                <div ng-if="createConversation==true">
+                                    <input ng-model="createConversationInput"  class="form-control"  placeholder="Conversation name">
+                                    <button style="margin:5px 0px 10px 0px" type="submit" class="btn btn-sm btn-block btn-primary  " ng-click="createNewConversation(createConversationInput)">Create new!</button>
+
+                                </div>
+                                <div class="licat" ng-repeat="conversation in CurrentUserConversation "  >
+                                    <li class="right clearfix" ng-click="getMessages(conversation.id,conversation.name)">
+                                    <span class="chat-img pull-right">
+                                        <i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                        <div class="chat-body clearfix">
+
+                                            <p>
+                                                {{conversation.name}}
+                                            </p>
+                                        </div>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5  col-sm-5 PanelTopMargin " >
+                <div class="panel panel-info ">
+                    <div class="panel-heading" id="accordion">
+                        <span ng-click="getMessages(conveId)" class="fa fa-comments fa-2x"></span> {{ConversationName}}
+                        <a ng-click="getMessages(conveId,ConversationName)"><i class="fa fa-refresh faMargin fa-2x toRight" aria-hidden="true"></i></a>
+
+                    </div>
+                    <div class="panel-collapse collapse in  " >
+                        <div class="panel-body chatBody ">
+                            <ul class="chat" >
+                                <div  ng-repeat="message in messages | reverse" >
+                                    <li  ng-if="message.user.id==currentUser.id"   class="right clearfix">
+                                        <div class="chat-body clearfix">
+                                            <span class="chat-img pull-left">
+                                            <img ng-src="http://priroda.inc.ru/ulybka/gif/smail.gif" style="margin-text-outline: 6px; margin-left: 30%" width="50"  height="50" alt="User Avatar" class="img-circle" id="phooe-id"/>
+                        </span>
+                                            <div class="header">
+                                                <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>{{message.sendDate  | date:"MM/dd/yyyy 'at' h:mma"}}</small>
+                                                <strong class="pull-right primary-font">{{currentUser.login}}</strong>
+                                            </div>
+                                            <p class="fonti">
+                                                {{message.text}}
+                                                <a><i ng-if="message.attachment!=null" ng-click="downloudFile(message.id)" class="fa fa-cloud-download" aria-hidden="true"></i></a>
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li  ng-repeat="userinConv in UserInConversation" ng-if="message.user.id==userinConv.id&&message.user.id!==currentUser.id"
+                                         class="left clearfix">
+                                        <span class="chat-img pull-left">
+                                            <img ng-src="http://www.clipartbest.com/cliparts/xTg/Kzj/xTgKzjnbc.gif" style="margin-text-outline: 6px; margin-left: 30%" width="50"  height="50" alt="User Avatar" class="img-circle" id="phooe-id"/>
+                        </span>
+                                        <div class="chat-body clearfix">
+                                            <div class="header">
+                                                <strong class="primary-font" >{{userinConv.login}}</strong> <small class="pull-right text-muted">
+                                                <span class="glyphicon glyphicon-time"></span>{{message.sendDate  | date:"MM/dd/yyyy 'at' h:mma"}}</small>
+                                            </div>
+                                            <div class="divEnter">
+                                                <p class="fonti">
+                                                    {{message.text}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </div>
+                            </ul>
+                        </div>
+
+
+                        <div class="panel-collapse collapse in">
+                            <div class="panel-body sender">
+                                <div class="message_write">
+                                    <textarea  ng-model="textMessage" class="form-control" placeholder="Type your message here..."></textarea>
+                                    <div class="clearfix">
+                                    </div>
+                                    <div class="chat_bottom" >
+                                        <label style="margin-left: 40%" >
+                                            <button style="display: inline-block" ng-click="sendMessages()" class="btn btn-primary " id="btn-send">
+                                                Send</button>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-4 col-md-4 col-sm-4 PanelTopMargin">
+                <div class="panel panel-success">
+                    <div class="panel-heading" >
+                        <span class="fa fa-address-card-o fa-2x"></span> Info {{InfoText}} </div>
+                    <div class="panel-collapse collapse in">
+                        <div class="panel-body conversation">
+                            <ul class="chat" >
+                                <div class="btn-group btn-group-justified">
+                                    <a ng-click="infoButtonNumber='1';InfoText='Friends'; GetAllFriends()" class="btn btn-success">Friends</a>
+                                    <a ng-click="infoButtonNumber='2';InfoText='Users in Chat'" class="btn btn-success">In chat</a>
+                                    <a ng-click="GetAllUsers(3);InfoText='All Users'" class="btn btn-success">All users</a>
+                                </div>
+                                <div style="margin-top: 10px">
+                                </div>
+                            </ul>
+                            <ul class="convers" >
+                                <div ng-if="infoButtonNumber=='2'" class="licat" ng-repeat="userInChat in UserInConversation "   >
+                                    <li  class="right clearfix">
+                                    <span class="chat-img pull-right" style="margin-right: 10%">
+                                        <i  class="fa fa-user-o fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                        <div class="chat-body clearfix">
+                                            <p>
+                                                {{userInChat.login}}
+                                            </p>
+                                        </div>
+                                    </li>
+                                </div>
+
+                                <div ng-if="infoButtonNumber=='1'" class="licat" ng-repeat="userfriend in userFriends ">
+                                    <li  class="right clearfix">
+                                    <span class="chat-img pull-right" style="margin-right: 10%" ng-click="AddToChat(userfriend.id)">
+                                        <i  class="fa fa-commenting-o fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                        <div class="chat-body clearfix">
+                                            <p>
+                                                {{userfriend.login}}
+                                            </p>
+                                        </div>
+                                    </li>
+                                </div>
+
+                                <div ng-if="infoButtonNumber=='3'" class="licat" ng-repeat="allUserss in allUsers " >
+                                    <li  class="right clearfix">
+                                    <span class="chat-img pull-right" style="margin-right: 10%" ng-click="AddToFriend(allUserss.id)">
+                                        <i  class="fa fa-user-plus fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                        <div class="chat-body clearfix">
+                                            <p>
+
+                                                {{allUserss.login}}
+
+                                            </p>
+                                        </div>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+body{
+    background-image: url("../img/491926-1920x1080.jpg");
+}
+
+.toRight{
+    float: right;
+}
+
+.poster{
+    margin-top: 70px;
+    margin-bottom: 70px;
+}

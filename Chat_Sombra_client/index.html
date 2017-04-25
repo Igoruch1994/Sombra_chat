@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatik</title>
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/registration.css">
+    <script src="https://use.fontawesome.com/4688c0f624.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+</head>
+<body ng-controller="HomeController" >
+
+<nav  class="navbar navbar-inverse">
+    <div  class="container-fluid">
+        <div class="navbar-header">
+            <a  ng-click="barActive='home'" class="navbar-brand fontSettings" href="#home">Sombra_chat</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li ng-class="{'active':barActive==='home'}" ng-click="barActive='home'">
+                    <a class="fontSettings" href="#home">Home</a>
+                </li>
+                <li ng-if="currentUser" ng-class="{'active':barActive==='chat'}" ng-click="barActive='chat'">
+                    <a class="fontSettings" href="#chat">Chat</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-class="{'active':barActive==='signUp'}" ng-click="barActive='signUp'">
+                    <a class="fontSettings" href="#/registration"></span> Sign up
+                    </a>
+                </li>
+                <li ng-if="!currentUser" ng-class="{'active':barActive==='login'}" ng-click="barActive='login'">
+                    <a class="fontSettings" href="#/login"><span class="glyphicon glyphicon-log-in"></span> Login </a>
+                </li>
+                <li ng-if="currentUser" ng-click="logout()">
+                    <a class="fontSettings" ><span class="glyphicon glyphicon-log-out"></span> {{ currentUser.login}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div ng-view></div>
+
+<footer class="container-fluid text-center footPadding" style="color: #080808">
+    <p> @Igoruch production 2017 </p>
+</footer>
+
+
+
+<script src="app.js"></script>
+<script src="js/HomeController.js"></script>
+<script src="js/registrationController.js"></script>
+<script src="js/chatController.js"></script>
+</body>
+</html>
